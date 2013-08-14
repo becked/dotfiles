@@ -1,0 +1,12 @@
+# Source aliases
+. ~/.bashrc
+
+# Source git autocompletion
+source ~/dotfiles/bash/git-completion.bash
+
+# Editing mode should be VI
+set -o vi
+
+# Set prompt
+export PS1="\u@\h \W$ "
+
