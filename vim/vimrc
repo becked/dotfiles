@@ -1,0 +1,40 @@
+
+" Use Pathogen for plugin management
+execute pathogen#infect()
+
+" Use 256 colors
+set term=screen-256color
+
+" Enable syntax highlighting and automatic indentation
+syntax on
+filetype plugin indent on
+set shiftwidth=2
+
+" Turn off backups
+set nobackup
+set nowb
+set noswapfile
+
+" Set leader to comma
+let mapleader = ","
+let g:mapleader = ","
+
+" No tab characters
+set expandtab
+set tabstop=2
+
+" Open files in current directory
+map <leader>ew :e <C-R>=expand("%:p:h") . "/" <CR>
+map <leader>es :sp <C-R>=expand("%:p:h") . "/" <CR>
+map <leader>ev :vsp <C-R>=expand("%:p:h") . "/" <CR>
+map <leader>et :tabe <C-R>=expand("%:p:h") . "/" <CR>
+
+" Dark color scheme
+"color jeff_dark
+"color blackboard
+color desert-warm-256
+
+" CtrlP shortcut
+let g:ctrlp_map = '<c-p>'
+let g:ctrlp_cmd = 'CtrlP'
+
