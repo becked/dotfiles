@@ -30,11 +30,19 @@ map <leader>ev :vsp <C-R>=expand("%:p:h") . "/" <CR>
 map <leader>et :tabe <C-R>=expand("%:p:h") . "/" <CR>
 
 " Dark color scheme
-"color jeff_dark
-"color blackboard
 color desert-warm-256
 
 " CtrlP shortcut
 let g:ctrlp_map = '<c-p>'
 let g:ctrlp_cmd = 'CtrlP'
 
+" Tagbar
+map <leader>t :TagbarToggle <CR>
+
+" Yank stack
+let g:yankstack_map_keys = 0
+nmap <leader>p <Plug>yankstack_substitute_older_paste
+nmap <leader>P <Plug>yankstack_substitute_newer_paste
+
+" Gundo
+nnoremap <leader>u :GundoToggle<CR>
