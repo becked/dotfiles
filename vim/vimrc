@@ -47,11 +47,23 @@ nmap <leader>P <Plug>yankstack_substitute_newer_paste
 " Gundo
 nnoremap <leader>u :GundoToggle<CR>
 
+" Java gets 4 spaces for a tab
+if expand("%:p") =~ ".java"
+  set tabstop=4
+  set shiftwidth=4
+endif
+ 
 " Java syntax highlighting in the SailPoint XML source sections
-if expand("%:p") =~ ".xml"
+function! XMLJAVA()
   runtime! syntax/xml.vim
   unlet b:current_syntax
   syntax include @Java syntax/java.vim
   syntax region javaCode  start=+<Source>+ keepend end=+/</Source>+  contains=@Java
+endfunction
+map <leader>jj :call XMLJAVA() <CR>
+if expand("%:p") =~ ".xml"
+  call XMLJAVA()
 endif
  
+" Abbreviations
+iab log System.out.println("
