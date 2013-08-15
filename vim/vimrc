@@ -46,3 +46,12 @@ nmap <leader>P <Plug>yankstack_substitute_newer_paste
 
 " Gundo
 nnoremap <leader>u :GundoToggle<CR>
+
+" Java syntax highlighting in the SailPoint XML source sections
+if expand("%:p") =~ ".xml"
+  runtime! syntax/xml.vim
+  unlet b:current_syntax
+  syntax include @Java syntax/java.vim
+  syntax region javaCode  start=+<Source>+ keepend end=+/</Source>+  contains=@Java
+endif
+ 
