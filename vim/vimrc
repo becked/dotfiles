@@ -36,6 +36,11 @@ color desert-warm-256
 let g:ctrlp_map = '<c-p>'
 let g:ctrlp_cmd = 'CtrlP'
 
+" Run NERDTree on startup
+autocmd VimEnter * NERDTree
+" If run with an argument, put the cursor in the file window
+autocmd VimEnter * if argc() | wincmd p | endif
+
 " Tagbar
 map <leader>t :TagbarToggle <CR>
 
@@ -67,3 +72,17 @@ endif
  
 " Abbreviations
 iab log System.out.println("
+
+autocmd WinEnter * call s:CloseIfOnlyNerdTreeLeft()
+
+" Close NERDTree if ifs the last buffer
+function! s:CloseIfOnlyNerdTreeLeft()
+  if exists("t:NERDTreeBufName")
+    if bufwinnr(t:NERDTreeBufName) != -1
+      if winnr("$") == 1
+        q
+      endif
+    endif
+  endif
+endfunction
+
