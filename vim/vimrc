@@ -41,6 +41,9 @@ autocmd VimEnter * NERDTree
 " If run with an argument, put the cursor in the file window
 autocmd VimEnter * if argc() | wincmd p | endif
 
+" NERDTree toggle
+map <leader>d :NERDTreeToggle <CR>
+
 " Tagbar
 map <leader>t :TagbarToggle <CR>
 
@@ -64,11 +67,14 @@ function! XMLJAVA()
   unlet b:current_syntax
   syntax include @Java syntax/java.vim
   syntax region javaCode  start=+<Source>+ keepend end=+/</Source>+  contains=@Java
+  set ts=4
+  set shiftwidth=4
 endfunction
-map <leader>jj :call XMLJAVA() <CR>
 if expand("%:p") =~ ".xml"
   call XMLJAVA()
 endif
+map <leader>jj :call XMLJAVA() <CR>
+map <leader>jf :set ft=java <CR>
  
 " Abbreviations
 iab log System.out.println("
