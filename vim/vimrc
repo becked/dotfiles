@@ -1,9 +1,11 @@
-
-" Use Pathogen for plugin management
-execute pathogen#infect()
+"""""""""""""""""
+" General
 
 " Use 256 colors
 set term=screen-256color
+
+" Dark color scheme
+color desert-warm-256
 
 " Enable syntax highlighting and automatic indentation
 syntax on
@@ -29,8 +31,15 @@ map <leader>es :sp <C-R>=expand("%:p:h") . "/" <CR>
 map <leader>ev :vsp <C-R>=expand("%:p:h") . "/" <CR>
 map <leader>et :tabe <C-R>=expand("%:p:h") . "/" <CR>
 
-" Dark color scheme
-color desert-warm-256
+" Abbreviations
+iab log System.out.println(
+
+
+"""""""""""""""""
+" Plugins 
+
+" Use Pathogen for plugin management
+execute pathogen#infect()
 
 " CtrlP shortcut
 let g:ctrlp_map = '<c-p>'
@@ -55,6 +64,22 @@ nmap <leader>P <Plug>yankstack_substitute_newer_paste
 " Gundo
 nnoremap <leader>u :GundoToggle<CR>
 
+" Close NERDTree if ifs the last buffer
+function! s:CloseIfOnlyNerdTreeLeft()
+  if exists("t:NERDTreeBufName")
+    if bufwinnr(t:NERDTreeBufName) != -1
+      if winnr("$") == 1
+        q
+      endif
+    endif
+  endif
+endfunction
+autocmd WinEnter * call s:CloseIfOnlyNerdTreeLeft()
+
+
+"""""""""""""""""
+" Java helpers
+
 " Java gets 4 spaces for a tab
 if expand("%:p") =~ ".java"
   set tabstop=4
@@ -73,22 +98,7 @@ endfunction
 if expand("%:p") =~ ".xml"
   call XMLJAVA()
 endif
+
 map <leader>jj :call XMLJAVA() <CR>
 map <leader>jf :set ft=java <CR>
  
-" Abbreviations
-iab log System.out.println("
-
-autocmd WinEnter * call s:CloseIfOnlyNerdTreeLeft()
-
-" Close NERDTree if ifs the last buffer
-function! s:CloseIfOnlyNerdTreeLeft()
-  if exists("t:NERDTreeBufName")
-    if bufwinnr(t:NERDTreeBufName) != -1
-      if winnr("$") == 1
-        q
-      endif
-    endif
-  endif
-endfunction
-
