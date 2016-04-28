@@ -1,0 +1,14 @@
+" Colors
+syntax on
+set bg=dark
+
+" Indentation
+set autoindent
+set expandtab
+set tabstop=2
+set shiftwidth=2
+
+" Turn off backups
+set nobackup
+set nowb
+set noswapfile
