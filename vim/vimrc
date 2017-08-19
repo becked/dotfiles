@@ -1,104 +1,15 @@
-"""""""""""""""""
-" General
-
-" Use 256 colors
-set term=screen-256color
-
-" Dark color scheme
-color desert-warm-256
-
-" Enable syntax highlighting and automatic indentation
+" Colors
 syntax on
-filetype plugin indent on
-set shiftwidth=2
+set bg=dark
+set nohlsearch
+
+" Indentation
+set autoindent
+set expandtab
+set tabstop=4
+set shiftwidth=4
 
 " Turn off backups
 set nobackup
 set nowb
 set noswapfile
-
-" Set leader to comma
-let mapleader = ","
-let g:mapleader = ","
-
-" No tab characters
-set expandtab
-set tabstop=2
-
-" Open files in current directory
-map <leader>ew :e <C-R>=expand("%:p:h") . "/" <CR>
-map <leader>es :sp <C-R>=expand("%:p:h") . "/" <CR>
-map <leader>ev :vsp <C-R>=expand("%:p:h") . "/" <CR>
-map <leader>et :tabe <C-R>=expand("%:p:h") . "/" <CR>
-
-" Abbreviations
-iab log System.out.println(
-
-
-"""""""""""""""""
-" Plugins 
-
-" Use Pathogen for plugin management
-execute pathogen#infect()
-
-" CtrlP shortcut
-let g:ctrlp_map = '<c-p>'
-let g:ctrlp_cmd = 'CtrlP'
-
-" Run NERDTree on startup
-autocmd VimEnter * NERDTree
-" If run with an argument, put the cursor in the file window
-autocmd VimEnter * if argc() | wincmd p | endif
-
-" NERDTree toggle
-map <leader>d :NERDTreeToggle <CR>
-
-" Tagbar
-map <leader>t :TagbarToggle <CR>
-
-" Yank stack
-let g:yankstack_map_keys = 0
-nmap <leader>p <Plug>yankstack_substitute_older_paste
-nmap <leader>P <Plug>yankstack_substitute_newer_paste
-
-" Gundo
-nnoremap <leader>u :GundoToggle<CR>
-
-" Close NERDTree if ifs the last buffer
-function! s:CloseIfOnlyNerdTreeLeft()
-  if exists("t:NERDTreeBufName")
-    if bufwinnr(t:NERDTreeBufName) != -1
-      if winnr("$") == 1
-        q
-      endif
-    endif
-  endif
-endfunction
-autocmd WinEnter * call s:CloseIfOnlyNerdTreeLeft()
-
-
-"""""""""""""""""
-" Java helpers
-
-" Java gets 4 spaces for a tab
-if expand("%:p") =~ ".java"
-  set tabstop=4
-  set shiftwidth=4
-endif
- 
-" Java syntax highlighting in the SailPoint XML source sections
-function! XMLJAVA()
-  runtime! syntax/xml.vim
-  unlet b:current_syntax
-  syntax include @Java syntax/java.vim
-  syntax region javaCode  start=+<Source>+ keepend end=+/</Source>+  contains=@Java
-  set ts=4
-  set shiftwidth=4
-endfunction
-if expand("%:p") =~ ".xml"
-  call XMLJAVA()
-endif
-
-map <leader>jj :call XMLJAVA() <CR>
-map <leader>jf :set ft=java <CR>
- 
