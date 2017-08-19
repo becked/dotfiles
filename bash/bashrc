@@ -1,6 +1,13 @@
-alias l='ls -laF'
-alias gvim='mvim'
+# .bashrc
 
-HISTSIZE=5000
+# Source global definitions
+if [ -f /etc/bashrc ]; then
+	. /etc/bashrc
+fi
 
-PROMPT_COMMAND='echo -ne "\033]0;$PWD\007"'
+eval $(thefuck --alias)
+
+export HISTFILESIZE=
+export HISTSIZE=
+export HISTTIMEFORMAT="[%F %T] "
+PROMPT_COMMAND="history -a; $PROMPT_COMMAND"
